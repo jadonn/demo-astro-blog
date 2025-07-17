@@ -1,0 +1,29 @@
+---
+import { getCollection } from "astro:content";
+import SiteLayout from "../layouts/SiteLayout.astro"
+import PostPreview from "../components/PostPreview.astro";
+
+const engineeringPosts = await getCollection("posts", ({ data }) => {
+	return data.tags.includes("engineering");
+});
+---
+<head>
+	<style>
+		ul.engineering-posts {
+			list-style: none;
+		}
+		ul.engineering-posts li {
+			margin-right: 2rem;
+			margin-bottom: 0.5rem;
+		}
+	</style>
+</head>
+<SiteLayout>
+<h2>Posts on Engineering</h2>
+<p>The posts in this category are more about infrastructure, operations, and general technology usage.</p>
+<ul class="engineering-posts" id="engineering-posts">
+	{engineeringPosts.map(post => (
+		<li><PostPreview tags={post.data.tags} description={post.data.description} datePublished={post.data.date} title={post.data.title} url={`/posts/${post.id}`}/></li>
+	))}
+</ul>
+</SiteLayout>

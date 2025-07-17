@@ -1,0 +1,29 @@
+---
+import { getCollection } from "astro:content";
+import SiteLayout from "../layouts/SiteLayout.astro"
+import PostPreview from "../components/PostPreview.astro";
+
+const leadershipPosts = await getCollection("posts", ({ data }) => {
+	return data.tags.includes("leadership");
+});
+---
+<head>
+	<style>
+		ul.leadership-posts {
+			list-style: none;
+		}
+		ul.leadership-posts li {
+			margin-right: 2rem;
+			margin-bottom: 0.5rem;
+		}
+	</style>
+</head>
+<SiteLayout>
+<h2>Posts on Leadership</h2>
+<p>The posts in this category talk about how to lead effectively as both a formal leader (that is, a manager/supervisor/lead) and as an informal leader (that is, a subject matter expert, helpful person, etc.) in technology work.</p>
+<ul class="leadership-posts" id="leadership-posts">
+	{leadershipPosts.map(post => (
+		<li><PostPreview tags={post.data.tags} description={post.data.description} datePublished={post.data.date} title={post.data.title} url={`/posts/${post.id}`}/></li>
+	))}
+</ul>
+</SiteLayout>

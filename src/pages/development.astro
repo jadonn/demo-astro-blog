@@ -1,0 +1,29 @@
+---
+import { getCollection } from "astro:content";
+import SiteLayout from "../layouts/SiteLayout.astro"
+import PostPreview from "../components/PostPreview.astro";
+
+const developmentPosts = await getCollection("posts", ({ data }) => {
+	return data.tags.includes("development");
+});
+---
+<head>
+	<style>
+		ul.development-posts {
+			list-style: none;
+		}
+		ul.development-posts li {
+			margin-right: 2rem;
+			margin-bottom: 0.5rem;
+		}
+	</style>
+</head>
+<SiteLayout>
+<h2>Posts on Development</h2>
+<p>The posts in this category largely cover software development and thoughts.</p>
+<ul class="development-posts" id="development-posts">
+	{developmentPosts.map(post => (
+		<li><PostPreview tags={post.data.tags} description={post.data.description} datePublished={post.data.date} title={post.data.title} url={`/posts/${post.id}`}/></li>
+	))}
+</ul>
+</SiteLayout>

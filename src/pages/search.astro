@@ -1,0 +1,58 @@
+---
+import SiteLayout from "../layouts/SiteLayout.astro"
+---
+<SiteLayout>
+	<h2>Search All Posts</h2>
+	<label for="search-box">Search by full text</label>
+	<input type="text" id="search-box" name="search-box" required />
+	<button id="search-button" type="button">Search</button>
+	<p id="search-outcome"></p>
+	<ul id="search-results-list"></ul>
+	<script>
+		async function handleSearch(){
+			const searchOutcome = document.getElementById("search-outcome");
+			searchOutcome?.replaceChildren();
+			const searchResultsElement = document.getElementById("search-results-list");
+			searchResultsElement?.replaceChildren();
+			let searchResultCount = 0;
+			try {
+				let postData = sessionStorage.getItem("jadon-search-data");
+				const searchTerm = document.getElementById("search-box").value;
+				console.log(searchTerm);
+				if (postData === null){
+					const postDataResponse = await fetch("/post-data.json");
+					if (!postDataResponse.ok) {
+						throw new Error(`Post Data Request failed: ${postDataResponse.status}`);
+					}
+					postData = await postDataResponse.json();
+					sessionStorage.setItem("jadon-search-data", JSON.stringify(postData));
+					console.log(postData);
+				} else {
+					postData = JSON.parse(postData);
+				}
+				postData.map((post) => {
+					const postTitle = post.data.title;
+					const postText = `${postTitle} ${post.data.description} ${post.body}`;
+					const searchMatch = postText.includes(searchTerm);
+					if(searchMatch === true){
+						const searchResult = document.createElement("li");
+						const searchResultLink = document.createElement("a");
+						searchResultLink.href = `/posts/${post.id}`;
+						const searchResultText = document.createTextNode(postTitle)
+						searchResultLink.append(searchResultText);
+						searchResult.append(searchResultLink);
+						searchResultsElement?.append(searchResult);
+						searchResultCount += 1;
+					}
+				})
+				const searchOutcomeText = document.createTextNode(`Search completed: ${searchResultCount} matching posts found.`);
+				searchOutcome?.append(searchOutcomeText);
+				
+			} catch (error) {
+				console.error(error.message);
+				alert("There was an error when trying to search. Check the browser console logs for more information.");
+			}
+		}
+		document.getElementById("search-button")?.addEventListener("click", handleSearch);
+	</script>
+</SiteLayout>

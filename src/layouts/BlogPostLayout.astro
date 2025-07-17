@@ -1,0 +1,34 @@
+---
+import SiteLayout from "./SiteLayout.astro";
+const { frontmatter } = Astro.props;
+const tags = frontmatter.tags;
+const category = tags.at(-1);
+---
+<style>
+	article {
+		border: 4px ridge black;
+		padding: 0.5rem;
+	}
+	.engineering {
+		background-color: #FFCD61;
+	}
+	.development {
+		background-color: #FFCCDC;
+	}
+	.leadership {
+		background-color: #9742FF;
+		color: white;
+	}
+	.leadership > a {
+		color: black;
+	}
+</style>
+<SiteLayout>
+	<head>
+		<title>{frontmatter.title}</title>
+	</head>
+	<article class=`${category}`>
+	<h2>{frontmatter.title}</h1>
+	<slot />
+	</article>
+</SiteLayout>

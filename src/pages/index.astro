@@ -1,16 +1,15 @@
 ---
-
+import LatestPosts from "../components/LatestPosts.astro"
+import RandomPosts from "../components/RandomPosts.astro"
+import SiteLayout from "../layouts/SiteLayout.astro"
 ---
-
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<SiteLayout>
+	<section>
+		<header>
+			<h2>About Jadon</h2>
+		</header>
+		<p>Hello! My name is Jadon. I use technology to do neat things and to help people.</p>
+	</section>
+	<LatestPosts />
+	<RandomPosts />
+</SiteLayout>

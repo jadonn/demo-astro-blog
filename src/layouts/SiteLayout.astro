@@ -1,0 +1,61 @@
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<meta name="viewport" content="width=device-width" />
+		<meta name="generator" content={Astro.generator} />
+		<title>Jadon's Example Blog</title>
+		<style>
+			ul.nav-links > li:nth-child(n +2) {
+			border-left: 0.1rem solid;
+			padding-left: 0.3rem;
+			}
+		</style>
+	</head>
+	<body style="background-color: silver">
+		<header>
+		<nav style="border-bottom: solid 2px black">
+			<ul class="nav-links" style="display:flex; align-items: center; flex: 1 1 auto; flex-wrap: wrap; flex-direction: row; gap: 4px; padding-left: 0; list-style-type: none; margin-bottom: 2px;">
+				<li>
+					<a href="/">
+						Home
+					</a>
+				</li>
+				<li>
+					<a href="/engineering">
+						Engineering
+					</a>
+				</li>
+				<li>
+					<a href="/development">
+						Development
+					</a>
+				</li>
+				<li>
+					<a href="/leadership">
+						Leadership
+					</a>
+				</li>
+				<li>
+					<a href="/search">
+						Search All Posts
+					</a>
+				</li>
+				<li style="margin-left: auto">
+					<a href="https://social.vivaldi.net/@jadonn">
+						Fediverse
+					</a>
+				</li>
+				<li>
+					<a href="https://www.linkedin.com/in/jadon-naas/">
+					LinkedIn
+					</a>
+				</li>
+			</ul>
+		</nav>
+		<h1 style="text-align: center;">Jadon's Example Blog</h1>
+		<p style="text-align: center;">This is an example blog written in Astro as part of a technical challenge.</p>
+		</header>
+		<slot />
+	</body>
+</html>

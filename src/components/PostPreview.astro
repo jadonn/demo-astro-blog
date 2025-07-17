@@ -1,0 +1,33 @@
+---
+const { datePublished, description, tags, title, url} = Astro.props;
+const formattedDate = new Date(datePublished).toLocaleDateString();
+const category = tags.at(-1);
+---
+<style>
+	.post-preview {
+		border: 4px ridge black;
+		padding: 0.5rem;
+		position: relative;
+	}
+	.engineering {
+		background-color: #FFCD61;
+	}
+	.development {
+		background-color: #FFCCDC;
+	}
+	.leadership {
+		background-color: #9742FF;
+		color: white;
+	}
+	.leadership > a {
+		color: black;
+	}
+</style>
+<article class={`post-preview ${category}`}>
+	<header>
+		<h3>{title}</h3>
+	</header>
+	<p style="font-style: italic;">Published on {formattedDate} from posts on {category}</p>
+	<p>{description}</p>
+	<a href={url}>{`Read more about ${title}`}</a>
+</article>

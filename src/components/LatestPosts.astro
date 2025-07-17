@@ -1,0 +1,54 @@
+---
+import { getCollection } from "astro:content";
+import PostPreview from "./PostPreview.astro";
+
+const posts = (await getCollection("posts")).sort(
+	(a, b) => b.data.date.valueOf() - a.data.date.valueOf(),
+);
+const latestPosts = posts.slice(0, 20);
+---
+<head>
+<style>
+	ul.latest-posts {
+		list-style: none;
+	}
+	ul.latest-posts li {
+		margin-right: 2rem;
+		margin-bottom: 0.5rem;
+	}
+</style>
+<script>
+	function handleSetLatestPostsLimit(){
+		const currentLimit = document.getElementById("latest-posts-limit").value;
+		const latestPosts = document.getElementsByClassName("latest-post");
+		Array.prototype.map.call(latestPosts, (element, index) => {
+			if(index < currentLimit){
+				element.hidden = false;
+			}
+			else {
+				element.hidden = true;
+			}
+		});
+	}
+	document.getElementById("latest-posts-limit")?.addEventListener("click", handleSetLatestPostsLimit);
+</script>
+</head>
+<h2>Latest Posts</h2>
+<label for="latest-posts-limit">Limit latest posts:</label>
+<select name="limits" id="latest-posts-limit">
+	<option value="5">5</option>
+	<option value="10">10</option>
+	<option value="20">20</option>
+</select>
+<ul class="latest-posts" id="latest-posts">
+	{latestPosts.map((post, index) => {
+		const Preview = <PostPreview tags={post.data.tags} description={post.data.description} datePublished={post.data.date} title={post.data.title} url={`/posts/${post.id}`}/>
+		if (index < 5) {
+			return (
+			<li class="latest-post">{Preview}</li>
+		)}
+		else {
+			return (<li class="latest-post" hidden="true">{Preview}</li>)
+		}
+	})}
+</ul>

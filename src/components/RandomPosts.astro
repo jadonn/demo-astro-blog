@@ -1,0 +1,55 @@
+---
+---
+<script>
+	function getRandomIntInclusive(min, max) {
+		const minCeiled = Math.ceil(min);
+		const maxFloored = Math.floor(max);
+		return Math.floor(Math.random() * (maxFloored - minCeiled + 1) + minCeiled);
+	}
+	async function loadRandomPosts(){
+		try {
+			let postData = sessionStorage.getItem("jadon-search-data");
+			let posts;
+			if (postData === null){
+				const postDataResponse = await fetch("/post-data.json");
+				if (!postDataResponse.ok) {
+					throw new Error(`Post Data Request failed: ${postDataResponse.status}`);
+				}
+				posts = await postDataResponse.json();
+				sessionStorage.setItem("jadon-search-data", JSON.stringify(postData));
+				console.log(posts);
+			} else {
+				posts = JSON.parse(postData);
+			}
+			const randomPostTitles = new Set();
+			const randomPosts = [];
+			do {
+				const randomPostIndex = getRandomIntInclusive(0, posts.length);
+				const randomPost = posts.at(randomPostIndex);
+				if(randomPostTitles.has(randomPost.data.title) === false){
+					randomPosts.push(randomPost);
+					randomPostTitles.add(randomPost.data.title);
+				}
+			} while (randomPosts.length < 5)
+			const randomPostsListElement = document.getElementById("random-posts-list");
+			randomPosts.forEach((post) => {
+				const postListElement = document.createElement("li");
+				const postLinkElement = document.createElement("a");
+				postLinkElement.href = `/posts/${post.id}`;
+				const postLinkText = document.createTextNode(post.data.title);
+				postLinkElement.append(postLinkText);
+				postListElement.append(postLinkElement);
+				randomPostsListElement.append(postListElement);
+			})
+		} catch(error) {
+			console.error(error.message);
+			alert("There was an error when trying to search. Check the browser console logs for more information.");
+		}
+	}
+	loadRandomPosts();
+</script>
+<section>
+	<h2>Random Posts</h2>
+	<ul id="random-posts-list">
+	</ul>
+</section>
