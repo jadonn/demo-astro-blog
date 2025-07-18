@@ -1,47 +1,16 @@
-# Astro Starter Kit: Minimal
+# Jadon's Demo Astro Blog
 
-```sh
-npm create astro@latest -- --template minimal
-```
+## What is this repo about?
 
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/withastro/astro/tree/latest/examples/minimal)
-[![Open with CodeSandbox](https://assets.codesandbox.io/github/button-edit-lime.svg)](https://codesandbox.io/p/sandbox/github/withastro/astro/tree/latest/examples/minimal)
-[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/withastro/astro?devcontainer_path=.devcontainer/minimal/devcontainer.json)
+This is a simple blog website I wrote over a few hours using Astro to provide talking points for how I use HTML, CSS, and JavaScript to solve problems. The code in this blog is intended to provide specific, focused demonstrations of using foundational web technologies to produce something functional and valuable.
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+## Why not use React/some other framework/some library to do whatever?
 
-## 🚀 Project Structure
+Well, I could have done that, but I firmly believe if you lose touch with the fundamentals of the platform with which you are working, you open yourself up to trouble down the round through having the wrong abstractions. At this early stage of development in this particular problem space, I am extremely concerned with preserving the ability to easily and quickly change my code, and I believe sticking to the platform's primitives (that is, HTML, CSS, and minimal JavaScript) lets me do that.
 
-Inside of your Astro project, you'll see the following folders and files:
+## To run this demo blog
 
-```text
-/
-├── public/
-├── src/
-│   └── pages/
-│       └── index.astro
-└── package.json
-```
-
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
-
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
-
-Any static assets, like images, can be placed in the `public/` directory.
-
-## 🧞 Commands
-
-All commands are run from the root of the project, from a terminal:
-
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
-
-## 👀 Want to learn more?
-
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+1. Clone the repo `git clone https://github.com/jadonn/demo-astro-blog.git`
+2. Install dependencies `cd ./demo-astro-blog` then `npm install`
+3. Run the dev server `npm run dev`
+4. Navigate to `http://localhost:4321` in a web browser on the same machine that is running the development server
